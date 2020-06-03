@@ -1,0 +1,24 @@
+type Query {
+  helloWorld: String!
+  blog(id: ID!): Blog
+  blogs: [Blog]
+}
+
+type Mutation {
+  deleteBlog(id: ID!): String
+  updateBlog(blog: BlogInput): Blog
+  updateCompleteBlog(blog: BlogInput): Blog
+  postBlog(blog: BlogInput): Blog
+}
+
+input BlogInput {
+  id: ID
+  title: String
+  description: String
+}
+
+type Blog {
+  id:ID!
+  title:String
+  description:String
+}
