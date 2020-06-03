@@ -1,16 +1,38 @@
 import React, { PureComponent } from 'react';
-import { ListGroup, ListGroupItem } from 'reactstrap';
+import { Card, Button, CardTitle, CardText, Row, Col, Container } from 'reactstrap';
+import { graphql } from 'react-apollo';
+import query from '../queries/fetchBlogs';
 
-export default class BlogList extends PureComponent {
+class BlogList extends PureComponent {
     render() {
+
+        const { blogs=[] } = this.props.data;
+
         return (
-            <ListGroup>
-                <ListGroupItem>Cras justo odio</ListGroupItem>
-                <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
-                <ListGroupItem>Morbi leo risus</ListGroupItem>
-                <ListGroupItem>Porta ac consectetur ac</ListGroupItem>
-                <ListGroupItem>Vestibulum at eros</ListGroupItem>
-            </ListGroup>
+            <Container>
+                <Row>
+                    <Col>
+                        <h4 className="text-center my-3">Blogs</h4>
+                    </Col>
+                </Row>
+                <Row>
+                    {
+                        blogs.map(({id, title, description}, index) => {
+                            return (
+                            <Col key={id} sm="6" className="my-2">
+                                <Card body>
+                                    <CardTitle>{title}</CardTitle>
+                                    <CardText>{description}</CardText>
+                                    <Button>View Blog</Button>
+                                </Card>
+                            </Col>
+                            )
+                        })
+                    }
+                </Row>
+            </Container>
         )
     }
 }
+
+export default (graphql(query)(BlogList));
