@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import { Row, Col, Container, Button } from 'reactstrap';
+import { Row, Col, Container, Button, Input, Form, FormGroup, Label } from 'reactstrap';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import query from '../queries/fetchBlog';
 import fetchBlogs from '../queries/fetchBlogs';
@@ -64,12 +64,16 @@ export default function BlogList(props: Props<MatchParams>) {
         <Container>
             <Row>
                 <Col>
-                    <h4 className="text-center my-3">{blogData && blogData.title}</h4>
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <p className="text-center">{blogData && blogData.description}</p>
+                    <Form>
+                        <FormGroup>
+                            <Label for="blog_title">Title</Label>
+                            <Input disabled={!editMode} value={blogData.title} onChange={(e) => setBlog({ ...blogData, title: e.target.value })} type="text" name="email" id="blog_title" placeholder="Title" />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for="blog_description">Description</Label>
+                            <Input disabled={!editMode} value={blogData.description} onChange={(e) => setBlog({ ...blogData, description: e.target.value })} type="text" name="password" id="blog_description" placeholder="Description" />
+                        </FormGroup>
+                    </Form>
                 </Col>
             </Row>
             <Row>
