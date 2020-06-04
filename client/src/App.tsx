@@ -1,10 +1,13 @@
 import React from 'react';
 import './App.scss';
 import BlogList from './components/BlogList';
+import BlogPage from './components/BlogPage';
+import CreateBlog from './components/CreateBlog';
 import ApolloClient from 'apollo-client';
 import { createHttpLink } from "apollo-link-http";
 import { ApolloProvider } from 'react-apollo';
 import { InMemoryCache } from "apollo-cache-inmemory";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export const link = createHttpLink({
@@ -20,7 +23,13 @@ function App() {
   return (
     <div>
       <ApolloProvider client={client}>
-        <BlogList />
+        <Router>
+          <Switch>
+            <Route exact path="/" component={BlogList} />
+            <Route path="/blogs/:id" component={BlogPage} />
+            <Route path="/blog/create" component={CreateBlog} />
+          </Switch>
+        </Router>
       </ApolloProvider>
     </div>
   );
