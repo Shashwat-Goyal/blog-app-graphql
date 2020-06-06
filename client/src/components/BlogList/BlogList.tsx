@@ -1,10 +1,10 @@
 import React from 'react';
 import { Card, Button, CardTitle, CardText, Row, Col, Container, CardBody } from 'reactstrap';
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import query from '../queries/fetchBlogs';
-import deleteMutation from '../queries/deleteBlog';
+import query from '../../queries/fetchBlogs';
+import deleteMutation from '../../queries/deleteBlog';
 import { History } from 'history';
-import Loader from './Loader';
+import Loader from '../Loader';
 
 interface Props {
     history: History
@@ -44,7 +44,7 @@ export default function BlogList(props: Props) {
                 {
                     data && data.blogs.map(({ id, title, description }: Blog, index: number) => {
                         return (
-                            <Col key={id} sm="6" className="my-2">
+                            <Col key={id} sm="6" className="my-2" data-testid="blog-item">
                                 <Card>
                                     <CardBody>
                                         <CardTitle>{title}</CardTitle>

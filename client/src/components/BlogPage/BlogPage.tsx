@@ -1,13 +1,13 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { Row, Col, Container, Button, Input, Form, FormGroup, Label } from 'reactstrap';
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import query from '../queries/fetchBlog';
-import fetchBlogs from '../queries/fetchBlogs';
-import updateBlogMutation from '../queries/updateBlog';
+import query from '../../queries/fetchBlog';
+import fetchBlogs from '../../queries/fetchBlogs';
+import updateBlogMutation from '../../queries/updateBlog';
 import { History } from 'history';
-import { Blog } from '../models/Blog';
-import Loader from './Loader';
-import { usePrevious } from '../hooks';
+import { Blog } from '../../models/Blog';
+import Loader from '../Loader';
+import { usePrevious } from '../../hooks';
 
 interface MatchParams {
     name: string;

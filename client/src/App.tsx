@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.scss';
-import BlogList from './components/BlogList';
-import BlogPage from './components/BlogPage';
-import CreateBlog from './components/CreateBlog';
+import BlogList from './components/BlogList/BlogList';
+import BlogPage from './components/BlogPage/BlogPage';
+import CreateBlog from './components/CreateBlog/CreateBlog';
 import ApolloClient from 'apollo-client';
 import { createHttpLink } from "apollo-link-http";
 import { ApolloProvider } from 'react-apollo';

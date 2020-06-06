@@ -17,7 +17,7 @@
     },
     {
       "title": "New title 3",
-      "description": "The substring() method extracts the characters from a string, between two specified indices, and returns the new sub string.This method extracts the characters in a string between start and end, not including end itself.If start is greater than end, this method will swap the two arguments, meaning str.substring(1, 4) == str.substring(4, 1).If either start or end is less than 0, it is treated as if it were 0.Note: The substring() method does not change the original string.",
+      "description": "My description test",
       "id": "ahaELtt"
     },
     {
@@ -39,21 +39,6 @@
       "title": "new title",
       "description": "New desc",
       "id": "xfm5_RH"
-    },
-    {
-      "title": "my test frontend",
-      "description": "1322432423",
-      "id": "iapMkQX"
-    },
-    {
-      "title": "tefhvrhjfvwhj",
-      "description": "nvkjfbjkvbefkjbefkjer",
-      "id": "gJpOYI7"
-    },
-    {
-      "title": "newjkgfuregu test",
-      "description": "bhfkjhfjherkjhrkj",
-      "id": "h72Yv3l"
     }
   ]
 }

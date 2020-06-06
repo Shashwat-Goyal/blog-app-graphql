@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Button, Form, FormGroup, Label, Input, Row, Col, Container, Alert } from 'reactstrap';
 import { useMutation } from '@apollo/react-hooks';
-import query from '../queries/createBlog';
-import fetchBlogs from '../queries/fetchBlogs';
-import { Blog } from '../models/Blog';
+import query from '../../queries/createBlog';
+import fetchBlogs from '../../queries/fetchBlogs';
+import { Blog } from '../../models/Blog';
 
 interface NewBlog {
     title: string;
