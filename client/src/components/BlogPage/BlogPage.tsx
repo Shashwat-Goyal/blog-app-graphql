@@ -64,7 +64,7 @@ export default function BlogList(props: Props<MatchParams>) {
         <Container>
             <Row>
                 <Col>
-                    <Form>
+                    <Form data-testid="blog-form">
                         <FormGroup>
                             <Label for="blog_title">Title</Label>
                             <Input disabled={!editMode} value={blogData.title} onChange={(e) => setBlog({ ...blogData, title: e.target.value })} type="text" name="email" id="blog_title" placeholder="Title" />
