@@ -36,8 +36,7 @@ export default function BlogList(props: Props) {
         <Container>
             <Row>
                 <Col>
-                    <h4 className="text-center my-3">Blogs</h4>
-                    <Button className="pull-right" onClick={() => history.push('/blog/create')}>Create Blog</Button>
+                    <h4 className="text-center my-3">Blogs <Button className="pull-right" onClick={() => history.push('/blog/create')}>Create Blog</Button></h4>
                 </Col>
             </Row>
             <Row>

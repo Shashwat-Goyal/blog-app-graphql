@@ -32,7 +32,7 @@ it('renders without error', async () => {
     const { getByText } = customRender(<CreateBlog />, "/blog/create", mocks);
     const inputs = await screen.getAllByDisplayValue('');
     const titleLabel = await screen.findAllByLabelText('Title');
-    //console.log(label, "label");
+
     expect(inputs).toHaveLength(2);
     expect(titleLabel).toHaveLength(1);
 
