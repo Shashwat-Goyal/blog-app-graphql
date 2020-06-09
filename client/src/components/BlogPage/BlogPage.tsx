@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import { Row, Col, Container, Button, Input, Form, FormGroup, Label } from 'reactstrap';
+import { Row, Col, Container, Button, Input, Form, FormGroup, Label, Alert } from 'reactstrap';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import query from '../../queries/fetchBlog';
 import fetchBlogs from '../../queries/fetchBlogs';
@@ -33,21 +33,35 @@ interface BlogData {
 export default function BlogList(props: Props<MatchParams>) {
     const { match } = props;
     const [editMode, setEditMode] = useState(false);
+    const [message, setMessage] = useState({ type: '', message: '' });
     const [blogData, setBlog] = useState<Blog>({ title: "", description: "", id: "" });
     const { loading, data } = useQuery<BlogData, {}>(
         query,
         { variables: { id: match.params.id } }
     );
-    const [updateBlog] = useMutation<{ updateBlog: Blog }, { blog: Blog }>(updateBlogMutation, {
+    const [updateBlog, updateData] = useMutation<{ updateBlog: Blog }, { blog: Blog }>(updateBlogMutation, {
         variables: { blog: blogData },
         refetchQueries: [{ query: fetchBlogs }]
     });
-    const prevLoading = usePrevious(loading);
+
+    const updateBlogLoading = updateData && updateData.loading || false;
+
+    const prevLoading = usePrevious(loading) || false;
+    const prevUpdateBlogLoading = usePrevious(updateBlogLoading) || false;
 
     useEffect(() => {
         if (prevLoading !== loading && !loading) {
             const { id = '', title = '', description = '' } = (data && data.blog) || {};
             setBlog({ title, description, id });
+        }
+        if (updateBlogLoading !== prevUpdateBlogLoading && !updateBlogLoading) {
+            if (updateData && updateData.error) {
+                setMessage({ type: 'danger', message: 'Server encountered an error' });
+            }
+            else {
+                setMessage({ type: 'success', message: 'Blog Updated Successfully' });
+            }
+            setTimeout(() => setMessage({ type: '', message: '' }), 5000);
         }
     })
 
@@ -82,6 +96,15 @@ export default function BlogList(props: Props<MatchParams>) {
                         <Button className="m-2" color="success" onClick={() => { updateBlog(); setEditMode(false) }}>Save</Button>
                         <Button className="m-2" color="danger" onClick={onCancel}>Cancel</Button>
                     </Fragment>}
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    {
+                        message.message && <Alert className="mt-4" color={message.type}>
+                            {message.message}
+                        </Alert>
+                    }
                 </Col>
             </Row>
         </Container>
