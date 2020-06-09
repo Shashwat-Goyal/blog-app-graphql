@@ -20,7 +20,7 @@ export default function BlogList() {
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [message, setMessage] = useState({ type: '', message: '' });
+    const [message, setMessage] = useState<Message>({ type: '', message: '' });
 
     const [saveBlog, { loading, error, data }] = useMutation<
         { postBlog: Blog },

@@ -5,19 +5,10 @@ import query from '../../queries/fetchBlogs';
 import deleteMutation from '../../queries/deleteBlog';
 import { History } from 'history';
 import Loader from '../Loader';
+import { Blog, BlogData } from '../../models/Blog';
 
 interface Props {
     history: History
-}
-
-interface Blog {
-    id: string,
-    title: string,
-    description: string
-}
-
-interface BlogData {
-    blogs: Blog[];
 }
 
 export default function BlogList(props: Props) {

@@ -3,3 +3,7 @@ export interface Blog {
     title: string,
     description: string
 }
+
+export interface BlogData {
+    blogs: Blog[];
+}
