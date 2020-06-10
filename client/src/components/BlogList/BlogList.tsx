@@ -6,6 +6,7 @@ import deleteMutation from '../../queries/deleteBlog';
 import { History } from 'history';
 import Loader from '../Loader';
 import { Blog, BlogData } from '../../models/Blog';
+import { client } from '../../App';
 
 interface Props {
     history: History
@@ -17,7 +18,24 @@ export default function BlogList(props: Props) {
         query
     );
 
-    const [deleteBlog, { error }] = useMutation<{}>(deleteMutation, {});
+    const [deleteBlog, deleteData] = useMutation<{}>(deleteMutation, {
+        update(cache, deleteBlogData: any) {
+            const deletedId = deleteBlogData && deleteBlogData.data && deleteBlogData.data.deleteBlog && deleteBlogData.data.deleteBlog.id;
+            const index = data && data.blogs.findIndex(blog => blog.id === (deletedId)) || -1;
+            if (index != -1) {
+                let blogs = data && [...data.blogs] || [];
+                blogs.splice(index, 1);
+                cache.writeQuery({
+                    query,
+                    data: { blogs },
+                });
+            }
+            /* cache.writeQuery({
+                query,
+                data: { blogs: data && data.blogs.concat([addTodo]) },
+            }); */
+        }
+    });
 
     if (loading) {
         return <Loader loading={loading} />
@@ -40,7 +58,7 @@ export default function BlogList(props: Props) {
                                         <CardTitle>{title}</CardTitle>
                                         <CardText>{description}</CardText>
                                         <Button onClick={() => history.push(`/blogs/${id}`)}>View Blog</Button>
-                                        <Button className="mx-2" color="danger" onClick={() => deleteBlog({ variables: { id }, refetchQueries: [{ query }] })}>Delete Blog</Button>
+                                        <Button className="mx-2" color="danger" onClick={() => deleteBlog({ variables: { id } })}>Delete Blog</Button>
                                     </CardBody>
                                 </Card>
                             </Col>

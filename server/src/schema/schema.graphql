@@ -5,7 +5,7 @@ type Query {
 }
 
 type Mutation {
-  deleteBlog(id: ID!): String
+  deleteBlog(id: ID!): DeleteResponse
   updateBlog(blog: BlogInput): Blog
   updateCompleteBlog(blog: BlogInput): Blog
   postBlog(blog: BlogInput!): Blog
@@ -21,4 +21,9 @@ type Blog {
   id:ID!
   title:String
   description:String
+}
+
+type DeleteResponse {
+  id: ID
+  message: String
 }

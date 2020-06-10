@@ -16,9 +16,9 @@ const resolverMap: IResolvers = {
     }
   },
   Mutation: {
-    deleteBlog(_: void, args: any, { dataSources }: any, info: GraphQLResolveInfo): String {
+    deleteBlog(_: void, args: any, { dataSources }: any, info: GraphQLResolveInfo): object {
       const blog = dataSources.blogsDataAPI.deleteBlog(args.id);
-      return "Blog Deleted Successfully";
+      return { id: args.id, message: "Blog Deleted Successfully" };
     },
     updateBlog(_: void, args: any, { dataSources }: any, info: GraphQLResolveInfo): Blog {
       const blog = dataSources.blogsDataAPI.updateBlog(args.blog);

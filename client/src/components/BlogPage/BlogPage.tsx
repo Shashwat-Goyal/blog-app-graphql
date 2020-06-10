@@ -41,7 +41,7 @@ export default function BlogList(props: Props<MatchParams>) {
     );
     const [updateBlog, updateData] = useMutation<{ updateBlog: Blog }, { blog: Blog }>(updateBlogMutation, {
         variables: { blog: blogData },
-        refetchQueries: [{ query: fetchBlogs }]
+        //refetchQueries: [{ query: fetchBlogs }]
     });
 
     const updateBlogLoading = updateData && updateData.loading || false;

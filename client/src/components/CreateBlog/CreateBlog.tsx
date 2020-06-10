@@ -5,6 +5,7 @@ import query from '../../queries/createBlog';
 import fetchBlogs from '../../queries/fetchBlogs';
 import { Blog } from '../../models/Blog';
 import { usePrevious } from '../../hooks';
+import { client } from '../../App';
 
 interface NewBlog {
     title: string;
@@ -27,10 +28,17 @@ export default function BlogList() {
         { blog: NewBlog }
         >(query, {
             variables: { blog: { title, description } },
-            refetchQueries: [{ query: fetchBlogs }]
+            //refetchQueries: [{ query: fetchBlogs }]
         });
 
     const prevLoading = usePrevious(loading) || false;
+    let blogsData: any = {};
+    try {
+        blogsData = client.readQuery({ query: fetchBlogs });
+    }
+    catch (err) {
+        //console.log(err)
+    }
 
     useEffect(() => {
         if (prevLoading !== loading && !loading) {
@@ -39,6 +47,13 @@ export default function BlogList() {
                 setMessage({ type: "danger", message: error && error.message || "Server encountered an error" });
             }
             else {
+                console.log(data, "data on save")
+                client.writeQuery({
+                    query: fetchBlogs,
+                    data: {
+                        blogs: [...blogsData.blogs, data && data.postBlog]
+                    },
+                });
                 setTitle('');
                 setDescription('');
                 setMessage({ type: "success", message: "Blog Created Successfully" });
