@@ -4,9 +4,6 @@ import { IResolvers } from 'graphql-tools';
 
 const resolverMap: IResolvers = {
   Query: {
-    helloWorld(_: void, args: void, ctx: Context, info: GraphQLResolveInfo): string {
-      return `👋 Hello world! 👋`;
-    },
     blogs(_: void, args: void, { dataSources }: any, info: GraphQLResolveInfo): Blog[] {
       return dataSources.blogsDataAPI.getBlogs();
     },

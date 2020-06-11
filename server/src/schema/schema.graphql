@@ -1,22 +1,3 @@
-type Query {
-  helloWorld: String!
-  blog(id: ID!): Blog
-  blogs: [Blog]
-}
-
-type Mutation {
-  deleteBlog(id: ID!): DeleteResponse
-  updateBlog(blog: BlogInput): Blog
-  updateCompleteBlog(blog: BlogInput): Blog
-  postBlog(blog: BlogInput!): Blog
-}
-
-input BlogInput {
-  id: ID
-  title: String
-  description: String
-}
-
 type Blog {
   id:ID!
   title:String
@@ -26,4 +7,10 @@ type Blog {
 type DeleteResponse {
   id: ID
   message: String
+}
+
+input BlogInput {
+  id: ID
+  title: String
+  description: String
 }
