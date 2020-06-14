@@ -1,6 +1,15 @@
+@mixin circle($width, $height) {
+    width: $width;
+    height: $width;
+    border-radius: 50%;
+}
+
+$primary-color: #4B0082;
+
 .step-tracker {
+    height: 100%;
     background: #F8F8FF;
-    margin: 40px;
+    padding: 50px;
     ul {
         padding: 0;
     }
@@ -9,7 +18,7 @@
     }
     .step-card {
         background: #FFF;
-        color: #4B0082;
+        color: $primary-color;
         padding: 15px;
         &.active {
             background: #F5F5F5;
@@ -22,9 +31,7 @@
                 &:before {
                     content: '';
                     display: inline-block;
-                    height: 20px;
-                    width: 20px;
-                    border-radius: 50%;
+                    @include circle(20px, 20px);
                     border: 1px solid #ccc;
                     margin-right: 10px;
                     margin-top: 5px;
@@ -45,18 +52,18 @@
         &.active {
             .step-marker {
                 &:before {
-                    border-color: #4B0082;
+                    border-color: $primary-color;
                 }
             }
         }
         &.completed {
             .step-marker {
                 &:before {
-                    background: #4B0082;
-                    border-color: #4B0082;
+                    background: $primary-color;
+                    border-color: $primary-color;
                 }
                 &:after {
-                    border-color: #4B0082;
+                    border-color: $primary-color;
                 }
             }
         }
@@ -66,11 +73,7 @@
             &:before {
                 content: '';
                 display: inline-block;
-                width: 12px;
-                height: 12px;
-                -moz-border-radius: 6px;
-                -webkit-border-radius: 6px;
-                border-radius: 6px;
+                @include circle(12px, 12px);
                 border: 1px solid #ccc;
                 margin-right: 10px;
             }
@@ -92,15 +95,38 @@
                 }
             }
         }
-        .task-button {
-            background: #4B0082;
-            color: #FFF;
-            border-radius: 6px;
-            padding: 5px 10px;
-            font-size: 14px;
-            font-family: Calibri;
-            box-shadow: none;
-            border-color: #4B0082;
+        .step-description {
+            p {
+                display: inline-block;
+            }
+            width: 100%;
+            .task-button {
+                background: $primary-color;
+                color: #FFF;
+                border-radius: 6px;
+                padding: 5px 10px;
+                font-size: 14px;
+                font-family: Calibri;
+                box-shadow: none;
+                border-color: $primary-color;
+                float: right;
+            }
+        }
+    }
+}
+
+@media(max-width: 411px) {
+    .step-tracker {
+        padding: 0px;
+        .step-card {
+            .step-description {
+                p {
+                    display: block;
+                }
+                .task-button {
+                    float: left;
+                }
+            }
         }
     }
 }

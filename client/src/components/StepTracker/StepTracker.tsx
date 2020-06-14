@@ -5,8 +5,8 @@ import StepHeader from './StepHeader';
 
 const steps = [
     { title: "Register your account", active: false, completed: true },
-    { title: "Complete your wellness assessment", active: true, completed: false },
-    { title: "Link your aacounts", active: false, completed: false },
+    { title: "Complete your wellness assessment", active: false, completed: true },
+    { title: "Link your accounts", active: true, completed: false },
     { title: "Schedule your first call", active: false, completed: false }
 ]
 
