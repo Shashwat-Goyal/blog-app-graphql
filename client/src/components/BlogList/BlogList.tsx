@@ -40,7 +40,7 @@ export default function BlogList(props: Props) {
     if (loading) {
         return <Loader loading={loading} />
     }
-
+    console.log(data)
     return (
         <Container>
             <Row>

@@ -1,0 +1,106 @@
+.step-tracker {
+    background: #F8F8FF;
+    margin: 40px;
+    ul {
+        padding: 0;
+    }
+    li {
+        list-style: none;
+    }
+    .step-card {
+        background: #FFF;
+        color: #4B0082;
+        padding: 15px;
+        &.active {
+            background: #F5F5F5;
+        }
+        &.step-header {
+            display: flex;
+            align-items: flex-start;
+            .header-circle {
+                min-width: 40px;
+                &:before {
+                    content: '';
+                    display: inline-block;
+                    height: 20px;
+                    width: 20px;
+                    border-radius: 50%;
+                    border: 1px solid #ccc;
+                    margin-right: 10px;
+                    margin-top: 5px;
+                }
+            }
+            &.in-progress {
+                .header-circle {
+                    &:before {
+                        background: #ccc;
+                    }
+                }
+            }
+        }
+        &.step-progress {
+            display: flex;
+            flex: 1 1 auto;
+        }
+        &.active {
+            .step-marker {
+                &:before {
+                    border-color: #4B0082;
+                }
+            }
+        }
+        &.completed {
+            .step-marker {
+                &:before {
+                    background: #4B0082;
+                    border-color: #4B0082;
+                }
+                &:after {
+                    border-color: #4B0082;
+                }
+            }
+        }
+        .step-marker {
+            position: relative;
+            min-width: 40px;
+            &:before {
+                content: '';
+                display: inline-block;
+                width: 12px;
+                height: 12px;
+                -moz-border-radius: 6px;
+                -webkit-border-radius: 6px;
+                border-radius: 6px;
+                border: 1px solid #ccc;
+                margin-right: 10px;
+            }
+            &:after {
+                content: '';
+                display: block;
+                height: calc(100% + 20px);
+                border: 1px solid #ccc;
+                position: absolute;
+                left: 5px;
+                bottom: -10px;
+                top: 17px;
+            }
+        }
+        &:last-child {
+            .step-marker {
+                &:after {
+                    border: none;
+                }
+            }
+        }
+        .task-button {
+            background: #4B0082;
+            color: #FFF;
+            border-radius: 6px;
+            padding: 5px 10px;
+            font-size: 14px;
+            font-family: Calibri;
+            box-shadow: none;
+            border-color: #4B0082;
+        }
+    }
+}

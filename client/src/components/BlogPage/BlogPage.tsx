@@ -46,7 +46,7 @@ export default function BlogList(props: Props<MatchParams>) {
 
     const updateBlogLoading = updateData && updateData.loading || false;
 
-    const prevLoading = usePrevious(loading) || false;
+    const prevLoading = usePrevious<boolean>(loading) || false;
     const prevUpdateBlogLoading = usePrevious(updateBlogLoading) || false;
 
     useEffect(() => {
