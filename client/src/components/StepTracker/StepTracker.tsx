@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './StepTracker.scss';
 import Step from './Step';
 import StepHeader from './StepHeader';
@@ -13,26 +13,46 @@ const steps = [
 export default function StepTracker() {
 
     const inProgress = steps.filter(step => step.completed).length;
+    const [isCollapseOpen, setIsCollapseOpen] = useState<boolean>(false);
+
+    function collapsePanel(event: any) {
+        var content: HTMLElement | null = document.querySelector(".content");
+        if (content && content.style && content.style.maxHeight) {
+            content.style.maxHeight = "";
+            setIsCollapseOpen(false);
+        } else if (content) {
+            content.style.maxHeight = content.scrollHeight + "px";
+            setIsCollapseOpen(true);
+        }
+    }
 
     return (
-        <div className="step-tracker" style={{ height: window.innerHeight }}>
-            <StepHeader
-                title="Create a plan to meet your short and/or long term investment goals"
-                steps={steps.length}
-                inProgress={!!inProgress}
-            />
-            <ul>
-                {
-                    steps.map(step => {
-                        return <Step
-                            key={step.title}
-                            title={step.title}
-                            active={step.active}
-                            completed={step.completed}
+        <div className="custom-container">
+            <div className="custom-row">
+                <div className="col-custom-sm-12">
+                    <div className="step-tracker" style={{ height: window.innerHeight }}>
+                        <StepHeader
+                            title="Create a plan to meet your short and/or long term investment goals"
+                            steps={steps.length}
+                            inProgress={!!inProgress}
+                            collapsePanel={collapsePanel}
+                            isCollapseOpen={isCollapseOpen}
                         />
-                    })
-                }
-            </ul>
+                        <ul className="content">
+                            {
+                                steps.map(step => {
+                                    return <Step
+                                        key={step.title}
+                                        title={step.title}
+                                        active={step.active}
+                                        completed={step.completed}
+                                    />
+                                })
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
 
         /*<ul className="progress-tracker progress-tracker--vertical">

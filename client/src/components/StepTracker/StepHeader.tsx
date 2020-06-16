@@ -6,10 +6,13 @@ interface Props {
     title: string;
     steps: number;
     inProgress: boolean;
+    collapsePanel: any;
+    isCollapseOpen: boolean;
 }
 
 export default function StepHeader(props: Props) {
-    const { title = "", steps = 0, inProgress = false } = props;
+
+    const { title = "", steps = 0, inProgress = false, isCollapseOpen = false } = props;
     return (
         <div className={`step-card step-header ${inProgress ? 'in-progress' : ''}`}>
             <span className="header-circle">
@@ -17,7 +20,7 @@ export default function StepHeader(props: Props) {
             </span>
             <div style={{ display: "inline-block" }}>
                 <p>{title}</p>
-                <p>{steps} steps</p>
+                <p onClick={props.collapsePanel} className="cursor-pointer">{steps} steps <i className={`toggle-icon fa fa-chevron-${isCollapseOpen ? 'up' : 'down'}`} aria-hidden="true"></i></p>
             </div>
         </div>
     )
