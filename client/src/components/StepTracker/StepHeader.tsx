@@ -14,7 +14,7 @@ export default function StepHeader(props: Props) {
 
     const { title = "", steps = 0, inProgress = false, isCollapseOpen = false } = props;
     return (
-        <div className={`step-card step-header ${inProgress ? 'in-progress' : ''}`}>
+        <div className={`step-card step-header ${inProgress ? 'in-progress' : 'completed'}`}>
             <span className="header-circle">
 
             </span>

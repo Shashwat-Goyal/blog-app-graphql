@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import './StepTracker.scss';
 import Step from './Step';
 import StepHeader from './StepHeader';
 
-const steps = [
-    { title: "Register your account", active: false, completed: true },
-    { title: "Complete your wellness assessment", active: false, completed: true },
-    { title: "Link your accounts", active: true, completed: false },
+const stepsList = [
+    { title: "Register your account", active: true, completed: false },
+    { title: "Complete your wellness assessment", active: false, completed: false },
+    { title: "Link your accounts", active: false, completed: false },
     { title: "Schedule your first call", active: false, completed: false }
 ]
 
 export default function StepTracker() {
 
-    const inProgress = steps.filter(step => step.completed).length;
     const [isCollapseOpen, setIsCollapseOpen] = useState<boolean>(false);
+    const [steps, updateSteps] = useState(stepsList);
 
     function collapsePanel(event: any) {
         var content: HTMLElement | null = document.querySelector(".content");
@@ -26,11 +26,22 @@ export default function StepTracker() {
         }
     }
 
+    function completeTask(index: number) {
+        const updatedSteps = [...steps];
+        updatedSteps[index] = { ...updatedSteps[index], active: false, completed: true };
+        if (updatedSteps[index + 1]) {
+            updatedSteps[index + 1] = { ...updatedSteps[index + 1], active: true, completed: false };
+        }
+        updateSteps(updatedSteps);
+    }
+
+    const inProgress = steps.filter(step => step.completed).length !== steps.length;
+
     return (
         <div className="custom-container">
             <div className="custom-row">
-                <div className="col-custom-sm-12">
-                    <div className="step-tracker" style={{ height: window.innerHeight }}>
+                <div className="col-custom-sm-12 col-custom-xs-12">
+                    <div className="step-tracker sm-none" style={{ minHeight: window.innerHeight }}>
                         <StepHeader
                             title="Create a plan to meet your short and/or long term investment goals"
                             steps={steps.length}
@@ -40,61 +51,45 @@ export default function StepTracker() {
                         />
                         <ul className="content">
                             {
-                                steps.map(step => {
+                                steps.map((step, i) => {
                                     return <Step
                                         key={step.title}
                                         title={step.title}
                                         active={step.active}
                                         completed={step.completed}
+                                        completeTask={() => completeTask(i)}
                                     />
                                 })
                             }
                         </ul>
                     </div>
+                    <div className="md-none res-tracker" style={{ minHeight: window.innerHeight }}>
+                        <ul className="list-style-none">
+                            {steps.map(step => {
+                                return <li>
+                                    <div className={`step-marker ${step.active ? 'active' : ''} ${step.completed ? 'completed' : ''}`}></div>
+                                    <div style={{ minWidth: 50 }}></div>
+                                </li>
+                            })}
+                        </ul>
+                        <div>
+                            {
+                                steps.map((step, i) => {
+                                    return (
+                                        step.active ? <Fragment>
+                                            <p>{step.title}</p>
+                                            <button onClick={() => completeTask(i)} className="task-button">Complete Task</button>
+                                        </Fragment> : null
+                                    )
+                                })
+                            }
+                            {
+                                !inProgress ? <p>All tasks completed successfully</p> : null
+                            }
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
-        /*<ul className="progress-tracker progress-tracker--vertical">
-            <li className="progress-step is-complete">
-                <div className="progress-marker"></div>
-                <div className="progress-text">
-                    <h4 className="progress-title">Step 1</h4>
-                    Summary text explaining this step to the user
-            </div>
-            </li>
-
-            <li className="progress-step is-complete">
-                <div className="progress-marker"></div>
-                <div className="progress-text">
-                    <h4 className="progress-title">Step 2</h4>
-                    Summary text explaining this step to the user
-            </div>
-            </li>
-
-            <li className="progress-step is-active" aria-current="step">
-                <div className="progress-marker"></div>
-                <div className="progress-text">
-                    <h4 className="progress-title">Step 3</h4>
-                    Summary text explaining this step to the user
-            </div>
-            </li>
-
-            <li className="progress-step">
-                <div className="progress-marker"></div>
-                <div className="progress-text">
-                    <h4 className="progress-title">Step 4</h4>
-                    Summary text explaining this step to the user
-            </div>
-            </li>
-
-            <li className="progress-step">
-                <div className="progress-marker"></div>
-                <div className="progress-text">
-                    <h4 className="progress-title">Step 5</h4>
-                    Summary text explaining this step to the user
-            </div>
-            </li>
-        </ul>*/
     )
 }
